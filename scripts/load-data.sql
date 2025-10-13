@@ -60,7 +60,7 @@ GO
 -- Inserting data into erp_prd_cat table
 TRUNCATE TABLE bronze.erp_prd_cat;
 BULK INSERT bronze.erp_prd_cat
-FROM 'C:\Users\jason\Documents\SQL Server Management Studio 21\sql-data-warehouse\datasets\source_erp\erp_product_categories.csv'
+FROM 'C:\Users\jason\Documents\SQL Server Management Studio 21\sql-data-warehouse\datasets\source_erp\erp_prd_cat.csv'
 WITH (
     FIRSTROW = 2,
     FIELDTERMINATOR = ',',
