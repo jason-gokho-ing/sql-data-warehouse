@@ -1,5 +1,6 @@
 
 USE DWH;
+GO
 
 -- Inserting data into crm_cust_info table
 BULK INSERT bronze.crm_cust_info 
