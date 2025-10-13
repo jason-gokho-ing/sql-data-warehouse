@@ -18,14 +18,14 @@ GO
 -- CRM: product reference information
 IF OBJECT_ID('bronze.crm_prd_info', 'U') IS NOT NULL 
     DROP TABLE bronze.crm_prd_info;
-CREATE TABLE bronze.prd_info (
-    prd_id INT PRIMARY KEY,
+CREATE TABLE bronze.crm_prd_info (
+    prd_id INT,
     prd_key NVARCHAR(80),
     prd_nm VARCHAR(250),
     prd_cost DECIMAL(12,2),
     prd_line CHAR(5),
-    prd_start_dt DATE,
-    prd_end_dt DATE
+    prd_start_dt DATETIME,
+    prd_end_dt DATETIME
 );
 GO
 
@@ -33,7 +33,7 @@ GO
 IF OBJECT_ID('bronze.crm_sales_details', 'U') IS NOT NULL 
     DROP TABLE bronze.crm_sales_details;
 CREATE TABLE bronze.crm_sales_details (
-    sls_ord_num NVARCHAR(50) PRIMARY KEY,
+    sls_ord_num NVARCHAR(50),
     sls_prd_key NVARCHAR(80),
     sls_cust_id INT,
     sls_order_dt NVARCHAR(10),
@@ -49,7 +49,7 @@ GO
 IF OBJECT_ID('bronze.erp_cust_info', 'U') IS NOT NULL 
     DROP TABLE bronze.erp_cust_info;
 CREATE TABLE bronze.erp_cust_info (
-    cid NVARCHAR(80) PRIMARY KEY,
+    cid NVARCHAR(80),
     bdate DATE,
     gen VARCHAR(16)
 );
@@ -59,7 +59,7 @@ GO
 IF OBJECT_ID('bronze.erp_locations', 'U') IS NOT NULL 
     DROP TABLE bronze.erp_locations;
 CREATE TABLE bronze.erp_locations (
-    cid NVARCHAR(80) PRIMARY KEY,
+    cid NVARCHAR(80),
     cntry NVARCHAR(100)
 );
 GO
@@ -68,9 +68,10 @@ GO
 IF OBJECT_ID('bronze.erp_product_category', 'U') IS NOT NULL 
     DROP TABLE bronze.erp_product_category;
 CREATE TABLE bronze.erp_product_category (
-    id NVARCHAR(50) PRIMARY KEY,
-    cat NVARCHAR(120),
-    subcat NVARCHAR(200),
-    maintenance BIT
+    id  NVARCHAR(50),
+    cat NVARCHAR(50),
+    subcat NVARCHAR(50),
+    maintenance NVARCHAR(50)
 );
 GO
+
