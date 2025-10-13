@@ -65,9 +65,9 @@ CREATE TABLE bronze.erp_locations (
 GO
 
 -- ERP: product category 
-IF OBJECT_ID('bronze.erp_product_category', 'U') IS NOT NULL 
-    DROP TABLE bronze.erp_product_category;
-CREATE TABLE bronze.erp_product_category (
+IF OBJECT_ID('bronze.erp_prd_cat', 'U') IS NOT NULL 
+    DROP TABLE bronze.erp_prd_cat;
+CREATE TABLE bronze.erp_prd_cat (
     id  NVARCHAR(50),
     cat NVARCHAR(50),
     subcat NVARCHAR(50),
