@@ -1,6 +1,77 @@
-/* Data Analyzing and Clensing:
-1) checks the quality of Bronze Layer
-2) use data transformations to clean data
-3) Insert into Silver Layer
-*/
+USE DWH;
+GO
+
+-- CRM: customer basic info
+IF OBJECT_ID('silver.crm_cust_info', 'U') IS NOT NULL 
+    DROP TABLE silver.crm_cust_info;
+CREATE TABLE silver.crm_cust_info (
+    cst_id INT,
+    cst_key NVARCHAR(50),
+    cst_firstname NVARCHAR(50),
+    cst_lastname NVARCHAR(50),
+    cst_marital_status NVARCHAR(50),
+    cst_gender NVARCHAR(50),
+    cst_create_date DATE
+);
+GO
+
+-- CRM: product reference information
+IF OBJECT_ID('silver.crm_prd_info', 'U') IS NOT NULL 
+    DROP TABLE silver.crm_prd_info;
+CREATE TABLE silver.crm_prd_info (
+    prd_id INT,
+    prd_key NVARCHAR(80),
+    prd_nm VARCHAR(250),
+    prd_cost DECIMAL(12,2),
+    prd_line CHAR(5),
+    prd_start_dt DATETIME,
+    prd_end_dt DATETIME
+);
+GO
+
+-- CRM: sales transactions (raw)
+IF OBJECT_ID('silver.crm_sales_details', 'U') IS NOT NULL 
+    DROP TABLE silver.crm_sales_details;
+CREATE TABLE silver.crm_sales_details (
+    sls_ord_num NVARCHAR(50),
+    sls_prd_key NVARCHAR(80),
+    sls_cust_id INT,
+    sls_order_dt NVARCHAR(10),
+    sls_ship_dt NVARCHAR(10),
+    sls_due_dt NVARCHAR(10),
+    sls_sales DECIMAL(14,2),
+    sls_quantity INT,
+    sls_price DECIMAL(12,2)
+);
+GO
+
+-- ERP: customer demographics / identifiers
+IF OBJECT_ID('silver.erp_cust_info', 'U') IS NOT NULL 
+    DROP TABLE silver.erp_cust_info;
+CREATE TABLE silver.erp_cust_info (
+    cid NVARCHAR(80),
+    bdate DATE,
+    gen VARCHAR(16)
+);
+GO
+
+-- ERP: location lookup
+IF OBJECT_ID('silver.erp_locations', 'U') IS NOT NULL 
+    DROP TABLE silver.erp_locations;
+CREATE TABLE silver.erp_locations (
+    cid NVARCHAR(80),
+    cntry NVARCHAR(100)
+);
+GO
+
+-- ERP: product category 
+IF OBJECT_ID('silver.erp_prd_cat', 'U') IS NOT NULL 
+    DROP TABLE silver.erp_prd_cat;
+CREATE TABLE silver.erp_prd_cat (
+    id  NVARCHAR(50),
+    cat NVARCHAR(50),
+    subcat NVARCHAR(50),
+    maintenance NVARCHAR(50)
+);
+GO
 
