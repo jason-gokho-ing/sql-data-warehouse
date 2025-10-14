@@ -59,7 +59,17 @@ WHERE prd_nm != TRIM(prd_nm);
 SELECT * FROM bronze.crm_prd_info
 WHERE prd_cost <= 0 OR prd_cost IS NULL;
 
+-- Use LEAD() function to find gaps in product  date ranges
+SELECT 
+    prd_key, prd_nm, prd_start_dt, LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt ASC) - 1 AS prd_end_dt
+    FROM  bronze.crm_prd_info
+
+
 -- Check for Invalid Order Dates
 -- The product start date cannot be greater than the product end date
-SELECT * FROM bronze.crm_prd_info
+SELECT * FROM silver.crm_prd_info
 WHERE prd_end_dt < prd_start_dt
+
+
+
+
