@@ -39,9 +39,9 @@ CREATE TABLE bronze.crm_sales_details (
     sls_order_dt VARCHAR(10),
     sls_ship_dt VARCHAR(10),
     sls_due_dt VARCHAR(10),
-    sls_sales DECIMAL(14,2),
+    sls_sales INT,
     sls_quantity INT,
-    sls_price DECIMAL(12,2)
+    sls_price INT
 );
 GO
 

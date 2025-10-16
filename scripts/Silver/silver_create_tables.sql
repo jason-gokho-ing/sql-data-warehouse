@@ -11,7 +11,8 @@ CREATE TABLE silver.crm_cust_info (
     cust_lastname VARCHAR(35),
     cust_marital_status VARCHAR(35),
     cust_gender VARCHAR(35),
-    cust_create_date DATE
+    cust_create_date DATE,
+    dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
 
@@ -26,7 +27,8 @@ CREATE TABLE silver.crm_prd_info (
     prd_cost DECIMAL(12,2),
     prd_line VARCHAR(35),
     prd_start_dt DATE,
-    prd_end_dt DATE
+    prd_end_dt DATE,
+    dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
 
@@ -37,12 +39,13 @@ CREATE TABLE silver.crm_sales_details (
     sls_ord_num VARCHAR(35),
     sls_prd_key VARCHAR(35),
     sls_cust_id INT,
-    sls_order_dt VARCHAR(10),
-    sls_ship_dt VARCHAR(10),
-    sls_due_dt VARCHAR(10),
-    sls_sales DECIMAL(14,2),
+    sls_order_dt DATE,
+    sls_ship_dt DATE,
+    sls_due_dt DATE,
+    sls_sales DECIMAL(12,2),
     sls_quantity INT,
-    sls_price DECIMAL(12,2)
+    sls_price DECIMAL(12,2),
+    dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
 
@@ -52,7 +55,8 @@ IF OBJECT_ID('silver.erp_cust_info', 'U') IS NOT NULL
 CREATE TABLE silver.erp_cust_info (
     cust_id VARCHAR(35),
     birthday DATE,
-    gen VARCHAR(16)
+    gen VARCHAR(16),
+    dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
 
@@ -61,7 +65,8 @@ IF OBJECT_ID('silver.erp_locations', 'U') IS NOT NULL
     DROP TABLE silver.erp_locations;
 CREATE TABLE silver.erp_locations (
     cust_id VARCHAR(35),
-    country VARCHAR(35)
+    country VARCHAR(35),
+    dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
 
@@ -72,7 +77,8 @@ CREATE TABLE silver.erp_prd_cat (
     id  VARCHAR(35),
     cat VARCHAR(35),
     subcat VARCHAR(35),
-    maintenance VARCHAR(35)
+    maintenance VARCHAR(35),
+    dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
 
