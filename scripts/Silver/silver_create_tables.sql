@@ -74,7 +74,7 @@ GO
 IF OBJECT_ID('silver.erp_prd_cat', 'U') IS NOT NULL 
     DROP TABLE silver.erp_prd_cat;
 CREATE TABLE silver.erp_prd_cat (
-    id  VARCHAR(35),
+    prd_id  VARCHAR(35),
     cat VARCHAR(35),
     subcat VARCHAR(35),
     maintenance VARCHAR(35),

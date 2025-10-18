@@ -5,7 +5,7 @@ EXEC bronze.bronze_load_table_data;
 GO
 
 -- bronze.erp_cust_info
-INSERT INTO silver.erp_cust_info (cust_id, cust_key, birthday, gender)
+INSERT INTO silver.erp_cust_info (cust_id, birthday, gender)
 SELECT 
     CASE WHEN cust_id LIKE 'NAS%' 
         THEN SUBSTRING(cust_id, 4, LEN(cust_id)) 
@@ -28,4 +28,6 @@ SELECT prd_id,
     subcat, 
     maintenance 
 FROM bronze.erp_prd_cat;
+
+select * from silver.erp_prd_cat;
 

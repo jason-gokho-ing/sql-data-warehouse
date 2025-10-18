@@ -1,6 +1,8 @@
 USE DWH;
 GO
 
+
+-- Compare 
 -- bronze.erp_cust_info
 SELECT cust_id AS old_cust_id,
 CASE WHEN cust_id LIKE 'NAS%' 
@@ -19,10 +21,11 @@ END
 
 
 -- bronze.erp_locations
+-- Expectation: No Results
 SELECT (REPLACE(cust_id,'-','')) AS cust_id, country 
 FROM bronze.erp_locations
 WHERE (REPLACE(cust_id,'-',''))
 NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info)
 
 
-SELECT cust_key FROM silver.crm_cust_info;
+SELECT cust_key FROM silver.crm_;
