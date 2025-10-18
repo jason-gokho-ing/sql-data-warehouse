@@ -1,0 +1,12 @@
+# Ignore draw.io backup and export files
+*.bkp
+*.bak
+*.tmp
+*.backup
+*.autosave
+*.drawio.bkp
+
+
+# But keep these
+!DWH-Architecture.png
+!DWH - ERD Diagram.png
