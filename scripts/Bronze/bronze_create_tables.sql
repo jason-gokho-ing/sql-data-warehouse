@@ -51,7 +51,7 @@ IF OBJECT_ID('bronze.erp_cust_info', 'U') IS NOT NULL
 CREATE TABLE bronze.erp_cust_info (
     cust_id VARCHAR(35),
     birthday DATE,
-    gen VARCHAR(16)
+    gender VARCHAR(16)
 );
 GO
 
@@ -68,7 +68,7 @@ GO
 IF OBJECT_ID('bronze.erp_prd_cat', 'U') IS NOT NULL 
     DROP TABLE bronze.erp_prd_cat;
 CREATE TABLE bronze.erp_prd_cat (
-    id  VARCHAR(35),
+    prd_id  VARCHAR(35),
     cat VARCHAR(35),
     subcat VARCHAR(35),
     maintenance VARCHAR(35)

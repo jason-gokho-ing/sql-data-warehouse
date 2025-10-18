@@ -1,5 +1,0 @@
-USE DWH;
-
-EXEC bronze.bronze_load_table_data; 
--- Clean data and insert it into the Silver layer
-

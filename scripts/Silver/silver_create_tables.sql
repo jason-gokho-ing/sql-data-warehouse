@@ -55,7 +55,7 @@ IF OBJECT_ID('silver.erp_cust_info', 'U') IS NOT NULL
 CREATE TABLE silver.erp_cust_info (
     cust_id VARCHAR(35),
     birthday DATE,
-    gen VARCHAR(16),
+    gender VARCHAR(16),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 GO
