@@ -2,30 +2,35 @@ USE DWH;
 GO
 
 
--- Compare 
--- bronze.erp_cust_info
-SELECT cust_id AS old_cust_id,
-CASE WHEN cust_id LIKE 'NAS%' 
-    THEN SUBSTRING(cust_id, 4, LEN(cust_id)) 
-    ELSE cust_id 
-END AS cust_id, 
-birthday, gender 
-FROM bronze.erp_cust_info
-
-WHERE 
-CASE WHEN cust_id LIKE 'NAS%' 
-    THEN SUBSTRING(cust_id, 4, LEN(cust_id)) 
-    ELSE cust_id 
-END 
+-- Ensure customer ID and customer key are matching between CRM and ERP
+-- Expectation: No Results
+SELECT cust_id 
+FROM silver.erp_cust_info
+WHERE cust_id
  NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info);
 
+SELECT DISTINCT gender
+    FROM silver.erp_cust_info;
 
--- bronze.erp_locations
--- Expectation: No Results
-SELECT (REPLACE(cust_id,'-','')) AS cust_id, country 
-FROM bronze.erp_locations
-WHERE (REPLACE(cust_id,'-',''))
+SELECT birthday
+    FROM silver.erp_cust_info
+    WHERE birthday > GETDATE()
+
+ -- silver.erp_locations
+SELECT cust_id 
+FROM silver.erp_locations
+WHERE cust_id
 NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info)
 
+-- Data Standardization & Consistency. Make sure countries are accurate
+SELECT DISTINCT country FROM silver.erp_locations
 
-SELECT cust_key FROM silver.crm_;
+-- Ensure prd_id are all matching with the cat_id in the CRM Product Info Table
+SELECT prd_id 
+FROM silver.erp_prd_cat
+WHERE prd_id
+ NOT IN (SELECT DISTINCT cat_id FROM silver.crm_prd_info);
+
+
+
+
