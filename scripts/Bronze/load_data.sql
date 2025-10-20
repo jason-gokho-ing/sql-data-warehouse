@@ -119,3 +119,6 @@ BEGIN
         PRINT 'Error Message' + ERROR_MESSAGE();
     END CATCH
 END
+
+
+EXEC bronze.bronze_load_table_data;

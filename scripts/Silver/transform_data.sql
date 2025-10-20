@@ -45,6 +45,7 @@ BEGIN
             WHERE cust_id IS NOT NULL
         ) duplicate_checker
         WHERE recent_duplicate = 1;
+
     SET @end_time = GETDATE();
     PRINT 'Time taken to load silver.crm_cust_info: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS VARCHAR) + ' seconds';
     PRINT '';
@@ -57,7 +58,7 @@ BEGIN
     SELECT 
         prd_id,
         REPLACE(SUBSTRING(prd_key, 1, 5),'-','_') AS cat_id, -- Replacing all '-' with '_'
-        SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_key, -- Using subctring function to isolate portion of prd_key to match other table
+        SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_key, -- Using sub-string function to isolate portion of prd_key to match other table
         prd_name,
         COALESCE(prd_cost, 0) AS prd_cost, -- Replace NULL Values with 0
         CASE UPPER(TRIM(prd_line))
@@ -93,7 +94,7 @@ BEGIN
         CASE WHEN LEN(sls_due_dt) != 8 THEN NULL
             ELSE CAST(sls_due_dt AS DATE)
         END AS sls_due_dt,
-
+    -- Using CASE to handle NULL, zero, or negative sales and price values
         CASE WHEN sls_sales IS NULL OR sls_sales <= 0 OR sls_sales != sls_quantity * ABS(sls_price)
             THEN sls_quantity * ABS(sls_price)
             ELSE sls_sales
@@ -114,6 +115,7 @@ BEGIN
     PRINT 'Inserting Data into silver.erp_cust_info';
     INSERT INTO silver.erp_cust_info (cust_id, birthday, gender)
     SELECT 
+    -- Clean customer ID by removing 'NAS' prefix if it exists
         CASE WHEN cust_id LIKE 'NAS%' 
             THEN SUBSTRING(cust_id, 4, LEN(cust_id)) 
             ELSE cust_id 
