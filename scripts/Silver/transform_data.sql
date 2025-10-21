@@ -45,7 +45,6 @@ BEGIN
             WHERE cust_id IS NOT NULL
         ) duplicate_checker
         WHERE recent_duplicate = 1;
-
     SET @end_time = GETDATE();
     PRINT 'Time taken to load silver.crm_cust_info: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS VARCHAR) + ' seconds';
     PRINT '';
@@ -58,7 +57,7 @@ BEGIN
     SELECT 
         prd_id,
         REPLACE(SUBSTRING(prd_key, 1, 5),'-','_') AS cat_id, -- Replacing all '-' with '_'
-        SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_key, -- Using sub-string function to isolate portion of prd_key to match other table
+        SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_key, -- Using subctring function to isolate portion of prd_key to match other table
         prd_name,
         COALESCE(prd_cost, 0) AS prd_cost, -- Replace NULL Values with 0
         CASE UPPER(TRIM(prd_line))
@@ -94,7 +93,7 @@ BEGIN
         CASE WHEN LEN(sls_due_dt) != 8 THEN NULL
             ELSE CAST(sls_due_dt AS DATE)
         END AS sls_due_dt,
-    -- Using CASE to handle NULL, zero, or negative sales and price values
+
         CASE WHEN sls_sales IS NULL OR sls_sales <= 0 OR sls_sales != sls_quantity * ABS(sls_price)
             THEN sls_quantity * ABS(sls_price)
             ELSE sls_sales
@@ -113,13 +112,12 @@ BEGIN
     SET @start_time = GETDATE();
     TRUNCATE TABLE silver.erp_cust_info;
     PRINT 'Inserting Data into silver.erp_cust_info';
-    INSERT INTO silver.erp_cust_info (cust_id, birthday, gender)
+    INSERT INTO silver.erp_cust_info (cust_key, birthday, gender)
     SELECT 
-    -- Clean customer ID by removing 'NAS' prefix if it exists
-        CASE WHEN cust_id LIKE 'NAS%' 
-            THEN SUBSTRING(cust_id, 4, LEN(cust_id)) 
-            ELSE cust_id 
-        END AS cust_id, 
+        CASE WHEN cust_key LIKE 'NAS%' -- Use LIKE to identify and filter customer IDs
+            THEN SUBSTRING(cust_key, 4, LEN(cust_key)) 
+            ELSE cust_key
+        END AS cust_key, 
         CASE WHEN birthday > GETDATE() THEN NULL -- Set future birthdays as NULL
             ELSE birthday
         END AS birthday,
@@ -137,9 +135,9 @@ BEGIN
     SET @start_time = GETDATE();
     TRUNCATE TABLE silver.erp_locations;
     PRINT 'Inserting Data into silver.erp_locations';
-    INSERT INTO silver.erp_locations (cust_id, country)
+    INSERT INTO silver.erp_locations (cust_key, country)
     SELECT 
-        (REPLACE(cust_id,'-','')) AS cust_id,
+        (REPLACE(cust_key,'-','')) AS cust_key,
         CASE 
             WHEN UPPER(LTRIM(RTRIM(country))) IN ('US', 'UNITED STATES') THEN 'United States'
             WHEN UPPER(LTRIM(RTRIM(country))) IN ('UK', 'UNITED KINGDOM') THEN 'United Kingdom'
@@ -179,4 +177,4 @@ END TRY
     END CATCH
 END
 
-exec silver.silver_load_table_data
+EXEC silver.silver_load_table_data

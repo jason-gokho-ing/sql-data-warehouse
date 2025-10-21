@@ -53,7 +53,7 @@ GO
 IF OBJECT_ID('silver.erp_cust_info', 'U') IS NOT NULL 
     DROP TABLE silver.erp_cust_info;
 CREATE TABLE silver.erp_cust_info (
-    cust_id VARCHAR(35),
+    cust_key VARCHAR(35),
     birthday DATE,
     gender VARCHAR(16),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
@@ -64,7 +64,7 @@ GO
 IF OBJECT_ID('silver.erp_locations', 'U') IS NOT NULL 
     DROP TABLE silver.erp_locations;
 CREATE TABLE silver.erp_locations (
-    cust_id VARCHAR(35),
+    cust_key VARCHAR(35),
     country VARCHAR(35),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );

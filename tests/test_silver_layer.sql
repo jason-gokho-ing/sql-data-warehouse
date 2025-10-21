@@ -132,9 +132,9 @@ ORDER BY
 -- Ensure customer ID and customer key are matching between CRM and ERP
 -- Expectation: No Results
 SELECT
-    cust_id
+    cust_key
 FROM silver.erp_cust_info
-WHERE cust_id NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info);
+WHERE cust_key NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info);
 
 
 -- Misc checks on ERP customer data
@@ -151,9 +151,9 @@ WHERE birthday > GETDATE();
 -- ================================================================
 -- silver.erp_locations
 SELECT
-    cust_id
+    cust_key
 FROM silver.erp_locations
-WHERE cust_id NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info);
+WHERE cust_key NOT IN (SELECT DISTINCT cust_key FROM silver.crm_cust_info);
 
 
 -- Data Standardization & Consistency. Make sure countries are accurate

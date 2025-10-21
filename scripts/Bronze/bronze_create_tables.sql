@@ -49,7 +49,7 @@ GO
 IF OBJECT_ID('bronze.erp_cust_info', 'U') IS NOT NULL 
     DROP TABLE bronze.erp_cust_info;
 CREATE TABLE bronze.erp_cust_info (
-    cust_id VARCHAR(35),
+    cust_key VARCHAR(35),
     birthday DATE,
     gender VARCHAR(16)
 );
@@ -59,7 +59,7 @@ GO
 IF OBJECT_ID('bronze.erp_locations', 'U') IS NOT NULL 
     DROP TABLE bronze.erp_locations;
 CREATE TABLE bronze.erp_locations (
-    cust_id VARCHAR(35),
+    cust_key VARCHAR(35),
     country VARCHAR(35)
 );
 GO
