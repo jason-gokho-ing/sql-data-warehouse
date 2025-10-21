@@ -177,4 +177,4 @@ END TRY
     END CATCH
 END
 
-EXEC silver.silver_load_table_data
+EXEC silver.silver_load_table_data;
