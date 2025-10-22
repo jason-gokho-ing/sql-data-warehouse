@@ -53,3 +53,16 @@ WHERE pi.prd_end_dt IS NULL
 GROUP BY prd_key
 HAVING COUNT(*) > 1;
 
+
+-- Foreign Key Integrity (for Dimension tables)
+
+SELECT * FROM gold.fact_sales f
+LEFT JOIN gold.dim_customer_info c
+ON c.customer_key = f.customer_key
+LEFT JOIN gold.dim_product_info p
+ON p.product_key = f.product_key
+WHERE p.product_key IS NULL;
+
+
+
+
