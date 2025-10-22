@@ -64,7 +64,7 @@ IF OBJECT_ID('gold.fact_sales','V') IS NOT NULL
 
 CREATE VIEW gold.fact_sales AS (
        SELECT 
-              sd.sls_ord_num,
+              sd.sls_ord_num AS order_number,
               prd.product_key,
               cus.customer_key,
               sd.sls_order_dt AS order_date,
