@@ -59,7 +59,7 @@ These keywords and patterns map directly to common resume items and interview qu
 ## Diagrams (visual)
 Open the files in `diagrams/` or view the PNGs below.
 
-![DFW-Data Flow Diagram](diagrams/DFW-Data-Flow-Diagram.png)
+![DWH-Data Flow Diagram](diagrams/DWH-Data-Flow-Diagram.png)
 ![DWH-ERD Diagram](diagrams/DWH-ERD-Diagram.png)
 ![DWH-Architecture](diagrams/DWH-Architecture.png)
 ![DWH-Sales Data Mart](diagrams/DWH-Sales-Data-Mart.png)
