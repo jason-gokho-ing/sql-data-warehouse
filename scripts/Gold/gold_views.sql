@@ -22,7 +22,10 @@ CREATE VIEW gold.dim_customer_info AS (
                      WHEN ci.cust_gender != 'N/A' THEN ci.cust_gender 
                      ELSE COALESCE(ci.cust_gender, 'N/A')  
                      END AS gender,
-              ei.birthday AS birthdate,
+              CASE 
+                     WHEN ei.birthday IS NULL THEN ''
+                     ELSE ei.birthday
+                     END AS birth_date,
               ci.cust_create_date AS created_date
        FROM silver.crm_cust_info ci
               LEFT JOIN silver.erp_cust_info ei
@@ -78,9 +81,10 @@ CREATE VIEW gold.fact_sales AS (
               ON sd.sls_cust_id = cus.customer_id
               LEFT JOIN gold.dim_product_info prd
               ON sd.sls_prd_key = prd.product_number
+       WHERE sd.sls_order_dt IS NOT NULL -- Filter out records with null order date
 );
 GO
 
 select * from gold.fact_sales;
-SELECT * from gold.dim_customer_info;
-SELECT * from gold.dim_product_info;
+select * from gold.dim_customer_info;
+SELECT * FROM gold.dim_product_info;

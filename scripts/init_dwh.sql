@@ -1,11 +1,15 @@
--- Create Database 'DWH'
-
 USE master;
+GO
 
--- Drop database if it already exists
-ALTER DATABASE DWH SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-DROP DATABASE DWH;
+-- Drop and recreate the 'DWH' database
+IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DWH')
+BEGIN
+    ALTER DATABASE DWH SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE DWH;
+END;
+GO
 
+-- Create the 'DWH' database
 CREATE DATABASE DWH;
 GO
 

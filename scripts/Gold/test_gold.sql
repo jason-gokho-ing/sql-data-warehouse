@@ -1,3 +1,6 @@
+USE DWH;
+GO
+
 
 -- test to see if JOIN created duplicate values
 SELECT cust_id, COUNT(*)
